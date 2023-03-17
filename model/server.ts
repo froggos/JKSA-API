@@ -1,4 +1,5 @@
 import { Application } from "express";
+import { Database } from '../db/database';
 
 const express = require('express');
 const path = require('path');
@@ -10,14 +11,17 @@ env.config();
 class Server {
     private app: Application;
     private _rutas: any = {};
+    private db: Database; 
 
     constructor() {
+        this.db = new Database();
         this.app = express();
         this.middlewares();
         this._rutas = {
             autenticar: 'autenticar',
         };
         this.rutas();
+        this.db.conectar();
     }
 
     private middlewares = (): void => {

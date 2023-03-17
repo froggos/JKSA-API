@@ -1,35 +1,20 @@
+import { Schema, model, Document } from "mongoose";
+
 export default class Usuario {
-    private id: number;
-    private usuario: string;
-    private password: string;
-    
-    constructor(id: number, usuario: string, password: string) {
-        this.id = id;
-        this.usuario = usuario;
-        this.password = password;
+    private _usuario: any;
+
+    constructor() {
+        const usuarioSchema = new Schema({
+            username: { type: String, required: true, unique: true },
+            password: { type: Number, required: true },
+        }, {
+            collection: 'usuario',
+        });
+
+        this._usuario = model<Document>('usuario', usuarioSchema);
     }
 
-    crear = () => {
-
-    }
-
-    modificar = () => {
-
-    }
-
-    eliminar = () => {
-
-    }
-
-    get Id() {
-        return this.id;
-    }
-
-    get Usuario() {
-        return this.usuario;
-    }
-
-    get Password() {
-        return this.password;
+    get usuario() {
+        return this._usuario;
     }
 }

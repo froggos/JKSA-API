@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { validarUsuario } from '../controller/usuario-controller';
-import { validarCampos } from '../middleware/usuario.middleware';
+import { AuthController } from '../controller/auth-controller';
 
 const router = Router();
 
-router.post('/verificar-cuenta', validarCampos, validarUsuario);
+const authController: AuthController = new AuthController();
+
+router.post('/verificar-cuenta', authController.login);
 
 module.exports = router;

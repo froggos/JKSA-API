@@ -1,13 +1,18 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 
-export default class Conexion {
-    private url: string = 'mongodb://localhost:27017';
-    private client: MongoClient = new MongoClient(this.url);
+export class Database {
+    private url: string = 'mongodb://localhost:27017/jksa';
 
-    constructor() {}
+    constructor() { }
 
-    conectar = () => {
-        
+    conectar = async () => {
+        await mongoose.connect(this.url, {
+            family: 4,
+        })
+        .then(() => console.log('Conexión exitosa'))
+        .catch((error) => {
+            console.log('========================');
+            console.log(error);
+        });
     }
 }
-
