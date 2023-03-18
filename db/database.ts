@@ -11,7 +11,6 @@ export class Database {
         })
         .then(() => console.log('Conexión exitosa'))
         .catch((error) => {
-            console.log('========================');
             console.log(error);
         });
     }

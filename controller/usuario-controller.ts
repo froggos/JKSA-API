@@ -1,5 +1,6 @@
 import { Response, Request } from 'express';
 import Usuario from '../model/usuario';
+import bcrypt from 'bcrypt';
 
 export class UsuarioController {
     private _model: Usuario;
@@ -9,18 +10,25 @@ export class UsuarioController {
     }
 
     crearUsuario = async (request: Request, response: Response) => {
-        const { username, password } = request.body;
-        const usuario = this._model.usuario({
-            username, password
-        });
-
+        const { password, username, email } = request.body;
+        const usuario = this._model.usuario;
+        const passHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
         try {
-            await usuario.save();
-            response.status(200).json(usuario);
-        } catch(error) {
-            response.status(500).json({
-                msg: error
+            usuario.create({
+                username: username,
+                password: passHash,
+                email: email,
+                profilename: username,
+                profile_picture: '/perfiles/default.jpg',
+                medals: [],
+                elo: 0,
+                ranking: false,
+                settingstring: 'theme:default;show_medals:false;save_session:false;medal_order:none;',
+            }, (error: any) => {
+                
             });
+        } catch(error) {
+
         }
     }
 }

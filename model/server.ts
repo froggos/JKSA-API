@@ -1,14 +1,12 @@
-import { Application } from "express";
+import express, { Application } from "express";
+import cors from 'cors';
+import env from 'dotenv';
+import { authRouter } from '../routes/auth.route';
 import { Database } from '../db/database';
-
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-const env = require('dotenv');
 
 env.config();
 
-class Server {
+export default class Server {
     private app: Application;
     private _rutas: any = {};
     private db: Database; 
@@ -18,7 +16,7 @@ class Server {
         this.app = express();
         this.middlewares();
         this._rutas = {
-            autenticar: 'autenticar',
+            autenticar: '/autenticar',
         };
         this.rutas();
         this.db.conectar();
@@ -30,13 +28,11 @@ class Server {
     }
 
     private rutas = (): void => {
-        this.app.use(this._rutas.autenticar, require('../routes/auth.route'));
+        this.app.use(this._rutas.autenticar, authRouter);
     }
 
     public escuchar = () => {
         this.app.listen(process.env.PORT);
-        console.log('Servidor inicializado');
+        console.log('Servidor inicializado en el puerto ' + process.env.PORT);
     }
 }
-
-module.exports = Server;

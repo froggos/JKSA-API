@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { AuthController } from '../controller/auth-controller';
 
-const router = Router();
+const authRouter = Router();
 
 const authController: AuthController = new AuthController();
 
-router.post('/verificar-cuenta', authController.login);
+authRouter.post('/verificar-cuenta', authController.login);
 
-module.exports = router;
+export  { authRouter };
