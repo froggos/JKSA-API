@@ -1,9 +1,9 @@
 import express, { Application } from "express";
 import cors from 'cors';
 import env from 'dotenv';
-import { authRouter } from '../routes/auth-route';
+import { authRouter } from '../routes/auth.route';
 import { Database } from '../db/database';
-import { usRouter } from "../routes/usuario-route";
+import { usRouter } from "../routes/usuario.route";
 
 env.config();
 
@@ -35,7 +35,7 @@ export default class Server {
     }
 
     public escuchar = () => {
-        this.app.listen(process.env.PORT);
+        this.app.listen(80);
         console.log('Servidor inicializado en el puerto ' + process.env.PORT);
     }
 }

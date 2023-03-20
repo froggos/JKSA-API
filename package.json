@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Servidor de JKSA",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "test"
   },

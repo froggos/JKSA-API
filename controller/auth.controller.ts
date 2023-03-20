@@ -31,6 +31,12 @@ export class AuthController {
                 });
             }
 
+            // Crear cookie para los datos del usuario.
+
+            //
+            //
+            //
+
             return response.status(200).json({
                 login: true,
                 usuario: encontrado,
