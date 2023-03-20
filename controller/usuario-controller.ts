@@ -25,10 +25,22 @@ export class UsuarioController {
                 ranking: false,
                 settingstring: 'theme:default;show_medals:false;save_session:false;medal_order:none;',
             }, (error: any) => {
-                
+                return response.status(400).json({
+                    crear: false,
+                    msg: 'Error la crear usuario',
+                    error,
+                });
             });
-        } catch(error) {
 
+            return response.status(200).json({
+                crear: true,
+                msg: 'Usuario creado.',
+            })
+        } catch(error) {
+            return response.status(500).json({
+                crear: false,
+                msg: 'Error la crear usuario',
+            });
         }
     }
 }

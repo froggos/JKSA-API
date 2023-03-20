@@ -1,8 +1,9 @@
 import express, { Application } from "express";
 import cors from 'cors';
 import env from 'dotenv';
-import { authRouter } from '../routes/auth.route';
+import { authRouter } from '../routes/auth-route';
 import { Database } from '../db/database';
+import { usRouter } from "../routes/usuario-route";
 
 env.config();
 
@@ -17,6 +18,7 @@ export default class Server {
         this.middlewares();
         this._rutas = {
             autenticar: '/autenticar',
+            usuario: '/usuario',
         };
         this.rutas();
         this.db.conectar();
@@ -29,6 +31,7 @@ export default class Server {
 
     private rutas = (): void => {
         this.app.use(this._rutas.autenticar, authRouter);
+        this.app.use(this._rutas.usuario, usRouter);
     }
 
     public escuchar = () => {
