@@ -24,7 +24,7 @@ export class AuthController {
                 });
             }
 
-            if(!this._model.validar(encontrado.password, password)) {
+            if(!this._model.validar(encontrado.password!, password)) {
                 return response.status(400).json({
                     login: false,
                     msg: 'Usuario o contraseña incorrecta.'

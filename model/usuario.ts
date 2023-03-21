@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import { model, Document } from "mongoose";
 import bcrypt from 'bcrypt';
 import { usuarioSchema } from "../schemas/usuario.schema";
 import { IUsuario } from "./interface/usuario-interface";
