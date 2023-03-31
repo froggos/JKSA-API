@@ -10,21 +10,21 @@ export class AuthController {
         this._model = new Usuario();
     }
 
-    login = async (request: Request, response: Response): Promise<Response<any, Record<string, any>>> => {
+    public login = async (request: Request, response: Response): Promise<Response<any, Record<string, any>>> => {
         const { password, username } = request.body;
-        const usuario = this._model.usuario;
+        const usuario = this._model.usuarioModel;
 
         try {
-            const encontrado: IUsuario = await usuario.findOne({'username': username});
+            const encontrado: IUsuario = await usuario.findOne({ 'username': username });
 
-            if(encontrado === null) {
+            if (encontrado === null) {
                 return response.status(400).json({
                     login: false,
                     msg: 'Usuario o contraseña incorrecta.',
                 });
             }
 
-            if(!this._model.validar(encontrado.password!, password)) {
+            if (!this._model.validar(encontrado.password!, password)) {
                 return response.status(400).json({
                     login: false,
                     msg: 'Usuario o contraseña incorrecta.'
@@ -42,7 +42,7 @@ export class AuthController {
                 usuario: encontrado,
                 token: GenerarToken.generarToken(usuario),
             });
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             return response.status(500).json({
                 msg: error
